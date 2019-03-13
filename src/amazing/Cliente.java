@@ -81,6 +81,6 @@ public class Cliente {
 	}
 	
 	public String toString() {
-		return "Nombre: " +nombre +" Dirección: " +direccion +" Código Postal: " +codigoPostal +" Teléfono: " +telefono +"\n";
+		return "Nombre: " +nombre +" Dirección: " +direccion +" Código Postal: " +codigoPostal +" Teléfono: " +telefono;
 	}
 }

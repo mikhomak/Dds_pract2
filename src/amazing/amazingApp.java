@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class amazingApp {
+	
+	
 	private static int clienteActualIndex = -1;
 	private static ArrayList<Cliente> clientes = new ArrayList<>();
 
@@ -17,9 +19,10 @@ public class amazingApp {
 		String menu = "";
 		Scanner scanner = new Scanner(System.in);
 		do {
-			// clienteactual = null
+			// clienteactual == null
 			if(clienteActivo()) {
-				menu = "4- Crear Envío\n5- Ver Envíos\n";
+				menu = "4- Crear Envío\n"
+						+ "5- Ver Envíos\n";
 			}
 			
 			
@@ -47,6 +50,9 @@ public class amazingApp {
 			    	break;
 			    case 4:
 			    	crearEnvio();
+			    	break;
+			    case 5:
+			    	listarEnvios();
 			    	break;
 			    	
 			    }
@@ -81,7 +87,7 @@ public class amazingApp {
 	    clientes.add(new Cliente(nombre, direccion, codigoPostal, telefono));
 	    
 	    System.out.println("Cliente " +nombre +" creado correctamente.");
-	    scanner.close();
+
 	}
 	
 	
@@ -96,6 +102,8 @@ public class amazingApp {
 		}
 	}
 	
+	
+	
 	public static void elegirCliente() {
 		listarClientes();
 		
@@ -106,9 +114,10 @@ public class amazingApp {
 	    System.out.println("Elija el cliente (con el numero)\n");
 	    clienteSeleccionado = scanner.nextInt();
 	    clienteActualIndex = clienteSeleccionado-1;
-	    System.out.println("Has elegido - " + clientes.get(clienteActualIndex).getNombre() + "\n");
-	    scanner.close();
+	    System.out.println("Has elegido - " + clientes.get(clienteActualIndex).getNombre());
 	}
+	
+	
 	
 	public static void crearEnvio() {
 		Scanner scanner = new Scanner(System.in);
@@ -128,7 +137,14 @@ public class amazingApp {
 	    String envio = clientes.get(clienteActualIndex).crearEnvio(direccionDestino, codigoPostalDestino, pesoEnGramos);
 	    
 	    System.out.println("Envío Creado: \n" +envio);
-	    scanner.close();
+
+	}
+	
+	
+	
+	private static void listarEnvios() {
+		System.out.println("Envios del cliente " + clientes.get(clienteActualIndex).getNombre() + ": ");
+		System.out.println(clientes.get(clienteActualIndex).mostrarTodosEnvios());
 	}
 	
 }
