@@ -69,13 +69,13 @@ public class amazingApp {
 	    		+ "Nombre: ");
 	    nombre = scanner.nextLine();
 	    
-	    System.out.println("DirecciÃ³n: ");
+	    System.out.println("Dirección: ");
 	    direccion = scanner.nextLine();
 	    
-	    System.out.println("CÃ³digo Postal: ");
+	    System.out.println("Código Postal: ");
 	    codigoPostal = scanner.nextLine();
 	    
-	    System.out.println("TelÃ©fono: ");
+	    System.out.println("Teléfono: ");
 	    telefono = scanner.nextLine();
 	    
 	    clientes.add(new Cliente(nombre, direccion, codigoPostal, telefono));
@@ -116,7 +116,7 @@ public class amazingApp {
 		int pesoEnGramos;
 		
 	    System.out.println("\t\tCreación Envío\t\t\n"
-	    		+ "DirecciÃ³n Destino: ");
+	    		+ "Dirección Destino: ");
 	    direccionDestino = scanner.nextLine();
 	    
 	    System.out.println("Código Postal Destino: ");
