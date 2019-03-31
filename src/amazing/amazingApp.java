@@ -91,21 +91,26 @@ public class amazingApp {
 	}
 	
 	
-	public static void listarClientes() {
+	public static boolean listarClientes() {
 		if(clientes.size() > 0) {
 			System.out.println("\t\tClientes Registrados\t\t\n");
 			for(int i=0; i<clientes.size(); i++) {
 				System.out.println((i+1) +": " +clientes.get(i).toString());
 			}
+			return true;
 		}else {
 			System.out.println("No hay clientes registrados.");
+			return false;
 		}
 	}
 	
 	
 	
 	public static void elegirCliente() {
-		listarClientes();
+		
+		if(listarClientes() == false) {
+			return ;
+		}
 		
 		Scanner scanner = new Scanner(System.in);
 		int clienteSeleccionado;
