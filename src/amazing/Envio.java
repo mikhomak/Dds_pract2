@@ -11,6 +11,7 @@ public class Envio {
 	protected static int idEnvioGlobal;
 	protected ITransport transport;
 	protected envioTipo tipoDeEnvio;
+	protected double costeTotal;
 	
 	public Envio() {}
 	
@@ -25,6 +26,7 @@ public class Envio {
 		this.transport = transport;
 		this.tipoDeEnvio = tipoEnvio;
 		this.costeEnvio = calcularCosteEnvio(transport);
+		costeTotal += costeEnvio;
 	}
 	
 	public int getID() { return this.idEnvio;}
@@ -73,7 +75,7 @@ public class Envio {
 	}
 	
 	public void anadirCosteServicio(double coste) {
-		costeEnvio +=coste;
+		costeTotal += coste;
 	}
 	
 	
@@ -94,7 +96,8 @@ public class Envio {
 	public String toStringSimplificado() {
 		return "ID: " + this.idEnvio
 		+"\nDestino: " +this.direccionDestino +" " +this.codigoPostalDestino
-		+"\nCoste: " + this.costeEnvio + "\n";
+		+"\nCoste: " + this.costeEnvio
+		+"\nCoste Total: " + this.costeTotal + "\n";
 	}
 	
 	
