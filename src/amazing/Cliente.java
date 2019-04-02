@@ -50,10 +50,33 @@ public class Cliente {
 		this.telefono = telefono;
 	}
 	
-	public String crearEnvio(String direccionDestino, String codigoPostalDestino, int pesoEnGramos) {
-		Envio envio = new Envio(direccionDestino, codigoPostalDestino, this.direccion, this.codigoPostal, pesoEnGramos);
+	public String crearEnvio(String direccionDestino, String codigoPostalDestino, int pesoEnGramos, ITransport transport) {
+		Envio envio = new Envio(direccionDestino, codigoPostalDestino, this.direccion, this.codigoPostal, pesoEnGramos, transport);
 		envios.add(envio);
 		return envio.toString();
+	}
+	
+	
+	public void añádirServicioAlEnvio(int servicio) {
+		// 1` - fragil
+		// 2 - con acuses de recibo
+		// 3 - urgente
+		Envio newEnvio = null;
+		
+		switch(servicio) {
+		case 1:
+			newEnvio = new Fragil(envios.remove(envios.size()));
+			break;
+		case 2:
+			newEnvio = new ConAcuseDeRecibo(envios.remove(envios.size()));
+			break;
+		case 3:
+			newEnvio = new Urgente(envios.remove(envios.size()));
+			break;
+		}
+		
+		envios.add(newEnvio);
+		
 	}
 	
 	public String mostrarTodosEnvios() {

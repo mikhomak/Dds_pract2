@@ -6,11 +6,12 @@ public class Envio {
 	private int idEnvio, pesoEnGramos;
 	private double costeEnvio;
 	private static int idEnvioGlobal;
-	
+	private ITransport transport;
+	private envioTipo tipoDeEnvio;
 	
 	public Envio() {}
 	
-	public Envio(String direccionDestino, String codigoPostalDestino, String direccionOrigen, String codigoPostalOrigen, int pesoEnGramos) {
+	public Envio(String direccionDestino, String codigoPostalDestino, String direccionOrigen, String codigoPostalOrigen, int pesoEnGramos, ITransport transport) {
 		idEnvioGlobal++;
 		this.idEnvio = idEnvioGlobal;
 		this.direccionDestino = direccionDestino;
@@ -18,7 +19,8 @@ public class Envio {
 		this.direccionOrigen = direccionOrigen;
 		this.codigoPostalOrigen = codigoPostalOrigen;
 		this.pesoEnGramos = pesoEnGramos;
-		this.costeEnvio = calcularCosteEnvio();
+		this.transport = transport;
+		this.costeEnvio = calcularCosteEnvio(transport);
 	}
 	
 	public int getID() { return this.idEnvio;}
@@ -48,19 +50,31 @@ public class Envio {
 		this.pesoEnGramos = peso;
 	}
 	
-	private double calcularCosteEnvio() {
+	public double calcularCosteEnvio(ITransport transport) {
 		double coste = 0.0;
 		
-		if(pesoEnGramos > 0 && pesoEnGramos <= 100) {
-			coste = pesoEnGramos * 0.01; //Carta			
-		}else if(pesoEnGramos > 100 && pesoEnGramos <= 2000) {
+		
+		switch(tipoDeEnvio) {
+		case carta:
+			coste = pesoEnGramos * 0.01; //Carta
+			break;
+		case paquete:
 			coste = pesoEnGramos * 0.02; //Paquete
-		}else if(pesoEnGramos > 2000) {
+			break;
+		case granVolumen:
 			coste = pesoEnGramos * 0.025; //Gran Volumen
+			break;
 		}
+		
 		
 		return coste;
 	}
+	
+	
+	public void setType(envioTipo tipo) {
+		tipoDeEnvio = tipo;
+	}
+	
 	
 	public String toString() {
 		return "ID: " + this.idEnvio 
@@ -72,5 +86,12 @@ public class Envio {
 	public String toStringSimplificado() {
 		return "ID: " + this.idEnvio
 		+"\nDestino: " +this.direccionDestino +" " +this.codigoPostalDestino;
+	}
+	
+	
+	public enum envioTipo{
+		carta,
+		paquete,
+		granVolumen;
 	}
 }

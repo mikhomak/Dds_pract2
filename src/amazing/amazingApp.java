@@ -139,13 +139,31 @@ public class amazingApp {
 	    System.out.println("Peso (gramos): ");
 	    pesoEnGramos = scanner.nextInt();
 	   	    
+	    
 	    String envio = clientes.get(clienteActualIndex).crearEnvio(direccionDestino, codigoPostalDestino, pesoEnGramos);
 	    
 	    System.out.println("Envío Creado: \n" +envio);
+	    
+	    System.out.println("Quieres servicios adicionales?(Y/N)");
+	    String respuesta = scanner.nextLine();
+	    if(respuesta.equals("Y")) 
+	    	serviciosAddicionales();
+	    
+	    
+	    
 
 	}
 	
-	
+	private static void serviciosAddicionales() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Eliga el servicio que quieres añadir: ");
+	    System.out.println("1) Fragil (3 euros)");
+	    System.out.println("2) Con acuses de recibo (2 euros)");
+	    System.out.println("3) Urgente (2 euros)");
+	    int res = scanner.nextInt();
+	    clientes.get(clienteActualIndex).añádirServicioAlEnvio(res);
+	    System.out.println("Servicio añadido!");
+	}
 	
 	private static void listarEnvios() {
 		System.out.println("Envios del cliente " + clientes.get(clienteActualIndex).getNombre() + ": ");
