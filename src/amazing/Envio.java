@@ -2,16 +2,19 @@ package amazing;
 
 public class Envio {
 
-	private String direccionDestino, codigoPostalDestino, direccionOrigen, codigoPostalOrigen;
-	private int idEnvio, pesoEnGramos;
-	private double costeEnvio;
-	private static int idEnvioGlobal;
-	private ITransport transport;
-	private envioTipo tipoDeEnvio;
+	protected String direccionDestino;
+	protected String codigoPostalDestino;
+	protected String direccionOrigen;
+	protected String codigoPostalOrigen;
+	protected int idEnvio, pesoEnGramos;
+	protected double costeEnvio;
+	protected static int idEnvioGlobal;
+	protected ITransport transport;
+	protected envioTipo tipoDeEnvio;
 	
 	public Envio() {}
 	
-	public Envio(String direccionDestino, String codigoPostalDestino, String direccionOrigen, String codigoPostalOrigen, int pesoEnGramos, ITransport transport) {
+	public Envio(String direccionDestino, String codigoPostalDestino, String direccionOrigen, String codigoPostalOrigen, int pesoEnGramos, ITransport transport, envioTipo tipoEnvio) {
 		idEnvioGlobal++;
 		this.idEnvio = idEnvioGlobal;
 		this.direccionDestino = direccionDestino;
@@ -20,6 +23,7 @@ public class Envio {
 		this.codigoPostalOrigen = codigoPostalOrigen;
 		this.pesoEnGramos = pesoEnGramos;
 		this.transport = transport;
+		this.tipoDeEnvio = tipoEnvio;
 		this.costeEnvio = calcularCosteEnvio(transport);
 	}
 	
@@ -52,23 +56,26 @@ public class Envio {
 	
 	public double calcularCosteEnvio(ITransport transport) {
 		double coste = 0.0;
-		
-		
 		switch(tipoDeEnvio) {
 		case carta:
-			coste = pesoEnGramos * 0.01; //Carta
+			coste = transport.getCosteCarta(pesoEnGramos); //Carta
 			break;
 		case paquete:
-			coste = pesoEnGramos * 0.02; //Paquete
+			coste = transport.getCostePaquete(pesoEnGramos); //Paquete
 			break;
 		case granVolumen:
-			coste = pesoEnGramos * 0.025; //Gran Volumen
+			coste = transport.getCosteGranVolumen(pesoEnGramos); //Gran Volumen
 			break;
 		}
 		
 		
 		return coste;
 	}
+	
+	public void anadirCosteServicio(double coste) {
+		costeEnvio +=coste;
+	}
+	
 	
 	
 	public void setType(envioTipo tipo) {
@@ -80,12 +87,14 @@ public class Envio {
 		return "ID: " + this.idEnvio 
 				+"\nOrigen: " +this.direccionOrigen +" " +this.codigoPostalOrigen 
 				+"\nDestino: " +this.direccionDestino +" " +this.codigoPostalDestino
+				+"\nTransport: " + this.transport.getName()
 				+"\nCoste: " +this.costeEnvio;
 	}
 	
 	public String toStringSimplificado() {
 		return "ID: " + this.idEnvio
-		+"\nDestino: " +this.direccionDestino +" " +this.codigoPostalDestino;
+		+"\nDestino: " +this.direccionDestino +" " +this.codigoPostalDestino
+		+"\nCoste: " + this.costeEnvio + "\n";
 	}
 	
 	

@@ -49,7 +49,8 @@ public class amazingApp {
 			    	elegirCliente();
 			    	break;
 			    case 4:
-			    	crearEnvio();
+			    	if(crearEnvio())
+			    		serviciosAddicionales();
 			    	break;
 			    case 5:
 			    	listarEnvios();
@@ -63,7 +64,7 @@ public class amazingApp {
 	}
 	
 	public static boolean clienteActivo() {
-		return (!clientes.isEmpty() && clientes.size() > clienteActualIndex && clienteActualIndex >= 0) ;
+		return (!clientes.isEmpty() && clientes.size() >= clienteActualIndex && clienteActualIndex >= 0) ;
 	}
 
 	public static void crearCliente() {
@@ -123,12 +124,13 @@ public class amazingApp {
 	}
 	
 	
-	
-	public static void crearEnvio() {
+	// Devuelve true - si queremos anadir un servicio 
+	// Devuelve false - si no queremos anadir un servicio
+	public static boolean crearEnvio() {
 		Scanner scanner = new Scanner(System.in);
 		String direccionDestino, codigoPostalDestino; 
 		int pesoEnGramos;
-		
+		String respuesta = null;
 	    System.out.println("\t\tCreación Envío\t\t\n"
 	    		+ "Dirección Destino: ");
 	    direccionDestino = scanner.nextLine();
@@ -139,18 +141,20 @@ public class amazingApp {
 	    System.out.println("Peso (gramos): ");
 	    pesoEnGramos = scanner.nextInt();
 	   	    
+	    ITransport transport = fabricaTransport.transport(clientes.get(clienteActualIndex).getCodigoPostal());
 	    
-	    String envio = clientes.get(clienteActualIndex).crearEnvio(direccionDestino, codigoPostalDestino, pesoEnGramos);
+	    
+	    String envio = clientes.get(clienteActualIndex).crearEnvio(direccionDestino, codigoPostalDestino, pesoEnGramos,transport);
 	    
 	    System.out.println("Envío Creado: \n" +envio);
 	    
 	    System.out.println("Quieres servicios adicionales?(Y/N)");
-	    String respuesta = scanner.nextLine();
-	    if(respuesta.equals("Y")) 
-	    	serviciosAddicionales();
-	    
-	    
-	    
+	     respuesta = scanner.next();
+	    if(respuesta.equals("Y") || respuesta.equals("y"))
+	    	return true;
+
+	    return false;
+
 
 	}
 	

@@ -9,9 +9,15 @@ public class Urgente extends decorador {
 		super(objectoADecorar);
 		// TODO Auto-generated constructor stub
 	}
+
 	
-	public double calcularCoste(ITransport transport) {
-		return super.calcularCosteEnvio(transport)+ costeAddicional;
-		
+	protected String getName() {
+		return nombreDelServicio;
+	}
+
+	@Override
+	protected double getCoste() {
+		// TODO Auto-generated method stub
+		return costeAddicional;
 	}
 }

@@ -9,15 +9,18 @@ public class fabricaEnvio {
 		
 		
 		
-		Envio envio = new Envio(direccionDestino, codigoPostalDestino, direccionOrigen, codigoPostalOrigen, pesoEnGramos, transport);
+		Envio envio = new Envio();
+		envioTipo type = null;
 		
 		if(pesoEnGramos > 0 && pesoEnGramos <= 100) {
-			envio.setType(envioTipo.carta);
+			type = envioTipo.carta; 
 		}else if(pesoEnGramos > 100 && pesoEnGramos <= 2000) {
-			envio.setType(envioTipo.paquete);
+			type = envioTipo.paquete;
 		}else if(pesoEnGramos > 2000) {
-			envio.setType(envioTipo.granVolumen);
+			type = envioTipo.granVolumen;
 		}
+		envio = new Envio(direccionDestino, codigoPostalDestino, direccionOrigen, codigoPostalOrigen, pesoEnGramos, transport, type);
+
 		return envio;
 	}
 	

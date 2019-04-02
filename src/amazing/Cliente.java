@@ -51,7 +51,7 @@ public class Cliente {
 	}
 	
 	public String crearEnvio(String direccionDestino, String codigoPostalDestino, int pesoEnGramos, ITransport transport) {
-		Envio envio = new Envio(direccionDestino, codigoPostalDestino, this.direccion, this.codigoPostal, pesoEnGramos, transport);
+		Envio envio = fabricaEnvio.crearEnvio(direccionDestino, codigoPostalDestino, this.direccion, this.codigoPostal, pesoEnGramos, transport);
 		envios.add(envio);
 		return envio.toString();
 	}
@@ -65,13 +65,13 @@ public class Cliente {
 		
 		switch(servicio) {
 		case 1:
-			newEnvio = new Fragil(envios.remove(envios.size()));
+			newEnvio = new Fragil(envios.remove(envios.size()-1));
 			break;
 		case 2:
-			newEnvio = new ConAcuseDeRecibo(envios.remove(envios.size()));
+			newEnvio = new ConAcuseDeRecibo(envios.remove(envios.size()-1));
 			break;
 		case 3:
-			newEnvio = new Urgente(envios.remove(envios.size()));
+			newEnvio = new Urgente(envios.remove(envios.size()-1));
 			break;
 		}
 		
@@ -82,7 +82,7 @@ public class Cliente {
 	public String mostrarTodosEnvios() {
 		String todosEnvios = "";
 		for(int i=0; i<this.envios.size(); i++) {
-			todosEnvios += i +": " +envios.get(i).toStringSimplificado() +"\n"; 
+			todosEnvios += i+1 +": " +envios.get(i).toStringSimplificado() +"\n"; 
 		}
 		return todosEnvios;
 	}

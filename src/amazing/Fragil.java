@@ -10,10 +10,20 @@ public class Fragil extends decorador {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public double calcularCoste(ITransport transport) {
-		return super.calcularCosteEnvio(transport)+ costeAddicional;
-		
+
+
+	@Override
+	protected String getName() {
+		// TODO Auto-generated method stub
+		return nombreDelServicio;
 	}
+
+	@Override
+	protected double getCoste() {
+		// TODO Auto-generated method stub
+		return costeAddicional;
+	}
+	
 	
 	
 }
